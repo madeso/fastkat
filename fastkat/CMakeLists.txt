@@ -27,5 +27,6 @@ add_executable(fastkat WIN32 ${all_src})
 #endif(BUILD_USE_CLANG_FORMAT)
 target_link_libraries(fastkat ${OPENGL_LIBRARIES} ${SDL2_LIBRARY} )# ${ASSIMP_LIBRARIES})
 
-#message(STATUS "Linking with OpenGL ${OPENGL_LIBRARIES}")
-#message(STATUS "Linking with AssImp ${ASSIMP_LIBRARIES}")
+message(STATUS "Linking with OpenGL ${OPENGL_LIBRARIES}")
+message(STATUS "Linking with SDL2 ${SDL2_LIBRARY}")
+# message(STATUS "Linking with AssImp ${ASSIMP_LIBRARIES}")

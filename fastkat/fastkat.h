@@ -8,6 +8,7 @@
 namespace Ogre {
 class SceneNode;
 class SceneManager;
+class Camera;
 }
 
 namespace OIS {
@@ -22,7 +23,7 @@ class Fastkat {
   void load(Ogre::SceneNode* root_scene_node, Ogre::SceneManager* scene);
   bool update(float delta_time, Ogre::SceneNode* camera_node,
               OIS::Keyboard* keyboard, OIS::Mouse* mouse, float window_width,
-              float window_height);
+              float window_height, Ogre::Camera* camera);
 };
 
 #endif  // FASTKAT_FASTKAT_H_

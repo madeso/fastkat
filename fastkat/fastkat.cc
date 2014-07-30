@@ -36,6 +36,7 @@ float track = 0;
 int next_frame = 0;
 int phase = 0;
 float fogdepth = 3500;
+float fov = 80;
 float p[8];
 float health = 100;
 Item ship;
@@ -55,6 +56,7 @@ float MathMax(float a, float b) { return std::max(a, b); }
 int MathFloor(float d) { return static_cast<int>(Ogre::Math::Floor(d)); }
 
 void game_init(Ogre::SceneNode* root_scene_node, Ogre::SceneManager* scene) {
+  scene->setFog(Ogre::FOG_LINEAR, Ogre::ColourValue::Black, 0.0, 1, fogdepth);
   for (int i = 0; i < 200; i++) {
     Item obs;
     obs.position.z = -i * (fogdepth / 200);
@@ -240,6 +242,7 @@ void nextphase() {
 void render_game() {
   doit();
   nextphase();
+  fov = fov - (fov - (65 + speed / 2)) / 4;
 }
 
 void render_intro() {
@@ -274,6 +277,8 @@ void render_intro() {
     }
   }
   speed = 0.3;
+
+  fov = 110;
 }
 
 void animate(float dt) {
@@ -302,7 +307,8 @@ void Fastkat::load(Ogre::SceneNode* root_scene_node,
 
 bool Fastkat::update(float delta_time, Ogre::SceneNode* camera_node,
                      OIS::Keyboard* keyboard, OIS::Mouse* mouse,
-                     float window_width, float window_height) {
+                     float window_width, float window_height,
+                     Ogre::Camera* camera) {
   animate(delta_time);
   bool keep_running = true;
   {
@@ -362,6 +368,8 @@ bool Fastkat::update(float delta_time, Ogre::SceneNode* camera_node,
     // camera_node->yaw(angle_x, Ogre::Node::TS_WORLD);
     // camera_node->pitch(angle_y, Ogre::Node::TS_LOCAL);
   }
+
+  camera->setFOVy(Ogre::Degree(fov));
 
   return keep_running;
 }

@@ -190,7 +190,8 @@ void OgreMain() {
 
     if (fastkat.update(delta_time, camera_node, keyboard, mouse,
                        static_cast<float>(window->getWidth()),
-                       static_cast<float>(window->getHeight())) == false) {
+                       static_cast<float>(window->getHeight()),
+                       camera) == false) {
       break;
     }
 

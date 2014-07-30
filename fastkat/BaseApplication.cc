@@ -11,6 +11,7 @@ BaseApplication::BaseApplication(void)
       mWindow(0),
       mResourcesCfg(Ogre::StringUtil::BLANK),
       mPluginsCfg(Ogre::StringUtil::BLANK),
+      mOverlaySystem(0),
       mTrayMgr(0),
       mCameraMan(0),
       mDetailsPanel(0),

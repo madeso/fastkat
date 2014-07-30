@@ -3,7 +3,7 @@
 #Filename:    CMakeLists.txt
 #-----------------------------------------------------------------------------
 #
-#This source file is part of the
+#This source file is based on the cmake from
 #   ___                 __    __ _ _    _ 
 #  /___\__ _ _ __ ___  / / /\ \ (_) | _(_)
 # //  // _` | '__/ _ \ \ \/  \/ / | |/ / |
@@ -17,6 +17,10 @@
 cmake_minimum_required(VERSION 2.6)
  
 project(fastkat)
+
+option(BUILD_USE_CLANG_FORMAT "Add clang format to the build" ON)
+option(BUILD_USE_CPPLINT "Add cpplint to the build" ON)
+option(BUILD_USE_CPPCHECK "run cppcheck on all source" ON)
 
 # Just debug / release since that's all that's included in SDK. Only release for iOS/OS X
 if(APPLE)
@@ -214,3 +218,26 @@ if(UNIX)
  
 endif(UNIX)
  
+if(BUILD_USE_CLANG_FORMAT)
+	add_custom_command(TARGET fastkat
+				   PRE_BUILD
+				   COMMAND ./call-clang-format.py ${CMAKE_CURRENT_SOURCE_DIR}/fastkat/*.cc ${CMAKE_CURRENT_SOURCE_DIR}/fastkat/*.h
+				   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+				   COMMENT "Running clang format" VERBATIM)
+endif(BUILD_USE_CLANG_FORMAT)
+
+if(BUILD_USE_CPPLINT)
+	add_custom_command(TARGET fastkat
+					   PRE_BUILD
+					   COMMAND ./cpplint.py ARGS --output=vs7 ${CMAKE_CURRENT_SOURCE_DIR}/fastkat/*.cc ${CMAKE_CURRENT_SOURCE_DIR}/fastkat/*.h  ${mainsrc}
+					   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+					   COMMENT "Running CppLint" VERBATIM)
+endif(BUILD_USE_CPPLINT)
+
+if(BUILD_USE_CPPCHECK)
+	add_custom_command(TARGET fastkat
+					   PRE_BUILD
+					   COMMAND cppcheck --enable=all --std=c++11 --suppress=unusedFunction --quiet --template=vs ${CMAKE_SOURCE_DIR}/fastkat
+					   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+					   COMMENT "Running cppcheck" VERBATIM)
+endif(BUILD_USE_CPPCHECK)

@@ -1,3 +1,5 @@
+// fastkat - Copyright (c) Omiod, port by Gustav
+
 #ifndef FASTKAT_CORE_H_
 #define FASTKAT_CORE_H_
 

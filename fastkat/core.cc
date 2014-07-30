@@ -1,3 +1,5 @@
+// fastkat - Copyright (c) Omiod, port by Gustav
+
 #include "fastkat/core.h"
 #include <cassert>
 
@@ -9,15 +11,12 @@
 #include "windows.h"  // NOLINT this is how we include windows
 #endif
 
-void ShowMessageBox(const std::string& title, const std::string& message)
-{
+void ShowMessageBox(const std::string& title, const std::string& message) {
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-  MessageBox(NULL, message.c_str(),
-    title.c_str(),
-    MB_OK | MB_ICONERROR | MB_TASKMODAL);
+  MessageBox(NULL, message.c_str(), title.c_str(),
+             MB_OK | MB_ICONERROR | MB_TASKMODAL);
 #else
-  std::cerr << title << ": " << message.c_str()
-    << std::endl;
+  std::cerr << title << ": " << message.c_str() << std::endl;
 #endif
 }
 
@@ -27,16 +26,14 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT)
 int main(int argc, char* argv[])
 #endif
 {
-  try
-  {
+  try {
     OgreMain();
-  }catch(Ogre::Exception &e)
-  {
+  }
+  catch (const Ogre::Exception& e) {
     ShowMessageBox("Ogre::Exception!!!!", e.what());
-  }catch(std::exception &e)
-  {
+  }
+  catch (const std::exception& e) {
     ShowMessageBox("std::exception", e.what());
   }
   return 0;
 }
-

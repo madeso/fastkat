@@ -1,3 +1,5 @@
+// fastkat - Copyright (c) Omiod, port by Gustav
+
 #include "fastkat/BaseApplication.h"
 
 #include <string>

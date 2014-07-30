@@ -1,7 +1,9 @@
+// fastkat - Copyright (c) Omiod, port by Gustav
+
 #ifndef FASTKAT_TUTORIALAPPLICATION_H_
 #define FASTKAT_TUTORIALAPPLICATION_H_
 
-#include "BaseApplication.h"
+#include "fastkat/BaseApplication.h"
 
 class TutorialApplication : public BaseApplication {
  public:

@@ -1,3 +1,5 @@
+// fastkat - Copyright (c) Omiod, port by Gustav
+
 #ifndef FASTKAT_BASEAPPLICATION_H_
 #define FASTKAT_BASEAPPLICATION_H_
 

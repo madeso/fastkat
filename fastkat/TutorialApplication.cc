@@ -1,3 +1,5 @@
+// fastkat - Copyright (c) Omiod, port by Gustav
+
 #include "fastkat/TutorialApplication.h"
 
 TutorialApplication::TutorialApplication(void) {}

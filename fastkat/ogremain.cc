@@ -165,7 +165,7 @@ void OgreMain() {
     resource_group_manager.initialiseResourceGroup(resource_group_name);
     resource_group_manager.loadResourceGroup(resource_group_name);
 
-    fastkat.load(root_scene_node, scene);
+    fastkat.load(root_scene_node, scene, camera);
   }
 
   root->clearEventTimes();

@@ -15,6 +15,8 @@
 
 Fastkat::Fastkat() {}
 
+const float SCALE = 2.0f;
+
 class Item {
  public:
   Ogre::Vector3 rotation;
@@ -25,17 +27,18 @@ class Item {
 
   void update() {
     // node->setOrientation(Ogre::Quaternion::)
-    node->setPosition(position);
+    Ogre::Vector3 p = position;
+    p.z *= SCALE;
+    node->setPosition(p);
   }
 };
 
 int status;
-
 float speed = 10;
 float track = 0;
 int next_frame = 0;
 int phase = 0;
-float fogdepth = 3500;
+const float fogdepth = 3500;
 float fov = 80;
 float p[8];
 float health = 100;
@@ -56,7 +59,8 @@ float MathMax(float a, float b) { return std::max(a, b); }
 int MathFloor(float d) { return static_cast<int>(Ogre::Math::Floor(d)); }
 
 void game_init(Ogre::SceneNode* root_scene_node, Ogre::SceneManager* scene) {
-  scene->setFog(Ogre::FOG_LINEAR, Ogre::ColourValue::Black, 0.0, 1, fogdepth);
+  scene->setFog(Ogre::FOG_LINEAR, Ogre::ColourValue::Black, 0.0, 1,
+                fogdepth * SCALE);
   for (int i = 0; i < 200; i++) {
     Item obs;
     obs.position.z = -i * (fogdepth / 200);
@@ -297,9 +301,11 @@ void animate(float dt) {
 
 //------------
 
-void Fastkat::load(Ogre::SceneNode* root_scene_node,
-                   Ogre::SceneManager* scene) {
+void Fastkat::load(Ogre::SceneNode* root_scene_node, Ogre::SceneManager* scene,
+                   Ogre::Camera* camera) {
   game_init(root_scene_node, scene);
+
+  camera->setFarClipDistance(fogdepth * SCALE);
 
   Ogre::Light* light = scene->createLight("MainLight");
   light->setPosition(20.0f, 80.0f, 50.0f);
@@ -347,15 +353,18 @@ bool Fastkat::update(float delta_time, Ogre::SceneNode* camera_node,
 
     float shipX = ship.position.x;
     float shipY = ship.position.y;
+
+    // 700
+    // 250
     shipX = shipX - (shipX - mx * 700) / 4;
-    shipY = shipY - (shipY - (-my) * 250) / 4;
+    shipY = shipY - (shipY - (-my) * 700) / 4;
     ship.position.x = shipX;
     ship.position.y = shipY;
     ship.position.z = -200;
 
     float rotation_speed = -4.0f;
 
-    float zcamera = -220;
+    float zcamera = -150 * SCALE;
     float xratio = 1;
     float yratio = 1;
 
@@ -369,7 +378,7 @@ bool Fastkat::update(float delta_time, Ogre::SceneNode* camera_node,
     // camera_node->pitch(angle_y, Ogre::Node::TS_LOCAL);
   }
 
-  camera->setFOVy(Ogre::Degree(fov));
+  // camera->setFOVy(Ogre::Degree(fov));
 
   return keep_running;
 }

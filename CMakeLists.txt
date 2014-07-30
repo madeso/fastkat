@@ -231,7 +231,7 @@ endif(BUILD_USE_CLANG_FORMAT)
 if(BUILD_USE_CPPLINT)
 	add_custom_command(TARGET fastkat
 					   PRE_BUILD
-					   COMMAND ./cpplint.py ARGS --output=vs7 ${CMAKE_CURRENT_SOURCE_DIR}/fastkat/*.cc ${CMAKE_CURRENT_SOURCE_DIR}/fastkat/*.h  ${mainsrc}
+					   COMMAND ./cpplint.py ARGS --output=vs7 ${CMAKE_CURRENT_SOURCE_DIR}/fastkat/*.cc ${CMAKE_CURRENT_SOURCE_DIR}/fastkat/*.h
 					   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
 					   COMMENT "Running CppLint" VERBATIM)
 endif(BUILD_USE_CPPLINT)

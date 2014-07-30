@@ -1,4 +1,4 @@
-#include "BaseApplication.h"
+#include "fastkat/BaseApplication.h"
 
 #include <string>
 
@@ -220,11 +220,10 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent &evt) {
   mTrayMgr->frameRenderingQueued(evt);
 
   if (!mTrayMgr->isDialogVisible()) {
-    mCameraMan->frameRenderingQueued(
-        evt);  // if dialog isn't up, then update the camera
-    if (mDetailsPanel->isVisible())  // if details panel is visible, then update
-                                     // its contents
-    {
+    // if dialog isn't up, then update the camera
+    mCameraMan->frameRenderingQueued(evt);
+    if (mDetailsPanel->isVisible()) {
+      // if details panel is visible, then update its contents
       mDetailsPanel->setParamValue(
           0, Ogre::StringConverter::toString(mCamera->getDerivedPosition().x));
       mDetailsPanel->setParamValue(

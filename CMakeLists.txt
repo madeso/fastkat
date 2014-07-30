@@ -121,6 +121,8 @@ include_directories( ${OIS_INCLUDE_DIRS}
 	${OGRE_SAMPLES_INCLUDEPATH}
 	${OGRE_Overlay_INCLUDE_DIRS}
 )
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
  
 add_executable(fastkat WIN32 ${HDRS} ${SRCS})
  

@@ -1,4 +1,4 @@
-#include "TutorialApplication.h"
+#include "fastkat/TutorialApplication.h"
 
 TutorialApplication::TutorialApplication(void) {}
 
@@ -10,7 +10,7 @@ void TutorialApplication::createScene(void) {
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #define WIN32_LEAN_AND_MEAN
-#include "windows.h"
+#include "windows.h"  // NOLINT this is how we include windows
 #endif
 
 #ifdef __cplusplus

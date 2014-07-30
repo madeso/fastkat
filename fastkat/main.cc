@@ -1,14 +1,6 @@
 // fastkat - Copyright (c) Omiod, port by Gustav
 
-#include "fastkat/TutorialApplication.h"
-
-TutorialApplication::TutorialApplication(void) {}
-
-TutorialApplication::~TutorialApplication(void) {}
-
-void TutorialApplication::createScene(void) {
-  // create your scene here :)
-}
+#include "fastkat/FastkatApplication.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #define WIN32_LEAN_AND_MEAN
@@ -26,7 +18,7 @@ int main(int argc, char* argv[])
 #endif
 {
   // Create application object
-  TutorialApplication app;
+  FastkatApplication app;
 
   try {
     app.go();

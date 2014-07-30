@@ -1,5 +1,5 @@
-#ifndef __TutorialApplication_h_
-#define __TutorialApplication_h_
+#ifndef FASTKAT_TUTORIALAPPLICATION_H_
+#define FASTKAT_TUTORIALAPPLICATION_H_
 
 #include "BaseApplication.h"
 
@@ -12,4 +12,4 @@ class TutorialApplication : public BaseApplication {
   virtual void createScene(void);
 };
 
-#endif  // #ifndef __TutorialApplication_h_
+#endif  // FASTKAT_TUTORIALAPPLICATION_H_

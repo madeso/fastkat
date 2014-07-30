@@ -1,5 +1,5 @@
-#ifndef __BaseApplication_h_
-#define __BaseApplication_h_
+#ifndef FASTKAT_BASEAPPLICATION_H_
+#define FASTKAT_BASEAPPLICATION_H_
 
 #include <OgreCamera.h>
 #include <OgreEntity.h>
@@ -80,4 +80,4 @@ class BaseApplication : public Ogre::FrameListener,
   OIS::Keyboard* mKeyboard;
 };
 
-#endif  // #ifndef __BaseApplication_h_
+#endif  // FASTKAT_BASEAPPLICATION_H_

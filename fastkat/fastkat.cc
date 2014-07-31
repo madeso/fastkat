@@ -33,7 +33,7 @@ class Item {
   }
 };
 
-int status;
+int status = 0;
 float speed = 10;
 float track = 0;
 int next_frame = 0;
@@ -44,11 +44,24 @@ float p[8];
 float health = 100;
 Item ship;
 std::vector<Item> objs;
-float dtm;
-float maxspeed;
-int score;
+float dtm = 0;
+float maxspeed = 0;
+int score = 0;
+float mytm = 0;
+float clight = 0;
+float speedlimit = 100;
 
 const float MathPI = 3.14f;
+
+Ogre::Light* light1;
+Ogre::Light* light2;
+
+void SetHsv(Ogre::Light* l, float h, float s, float v) {
+  Ogre::ColourValue cv;
+  cv.setHSB(h, s, v);
+  l->setDiffuseColour(cv);
+  l->setSpecularColour(cv);
+}
 
 float Random() { return Ogre::Math::RangeRandom(0.0f, 1.0f); }
 float MathCos(float d) { return Ogre::Math::Cos(d); }
@@ -244,16 +257,27 @@ void nextphase() {
 }
 
 void render_game() {
+  if (speed > 0) {
+    clight = speed / speedlimit;
+    // bdy.style.backgroundColor = '#000';
+  } else {
+    clight = 0;
+    // tmp = -Math.floor( Math.random()*speed*100);
+    // bdy.style.backgroundColor = 'rgb('+tmp+','+(tmp/2)+',0)';
+  }
+  SetHsv(light2, clight, 0.3, 1);
   doit();
   nextphase();
   fov = fov - (fov - (65 + speed / 2)) / 4;
 }
 
-void render_intro() {
-  /*
-  clight = (tm/100000)%1;
-  light2.color.setHSV( clight,0.4,1 );
+float frac(float f) { return f - static_cast<int64_t>(f); }
 
+void render_intro() {
+  clight = frac(mytm / 100000);
+  SetHsv(light2, clight, 0.4, 1);
+
+  /*
   zcamera2 = zcamera = -220;
   xratio = 1;
   yratio = 1;
@@ -287,6 +311,9 @@ void render_intro() {
 
 void animate(float dt) {
   dtm = dt * 1000;
+  mytm += dtm;
+  while (mytm > 10000) mytm -= 10000;
+
   if (status == 0) {
     render_intro();
   } else {
@@ -307,8 +334,16 @@ void Fastkat::load(Ogre::SceneNode* root_scene_node, Ogre::SceneManager* scene,
 
   camera->setFarClipDistance(fogdepth * SCALE);
 
-  Ogre::Light* light = scene->createLight("MainLight");
-  light->setPosition(20.0f, 80.0f, 50.0f);
+  light1 = scene->createLight("MainLight1");
+  light1->setType(Ogre::Light::LT_DIRECTIONAL);
+  light1->setDirection(Ogre::Vector3(2, -3, 1.5).normalisedCopy());
+  light1->setDiffuseColour(
+      Ogre::ColourValue(0xdd / 255.0f, 0xdd / 255.0f, 0xff / 255.0f));
+
+  light2 = scene->createLight("MainLight2");
+  light2->setType(Ogre::Light::LT_DIRECTIONAL);
+  SetHsv(light2, Random(), 0.75, 1);
+  light2->setDirection(Ogre::Vector3(-1.5, 2, 0).normalisedCopy());
 }
 
 bool Fastkat::update(float delta_time, Ogre::SceneNode* camera_node,
